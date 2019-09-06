@@ -82,6 +82,7 @@ Route::group(['prefix' => 'admin'],function ()
     Route::get('guarded_edit_keywoeds','GuardedKeywordsController@editGuardedKeywords');
     Route::post('guarded_edit_keywoeds_post','GuardedKeywordsController@postEditGuardedKeywords')->name('edit_guarded_keywords');
     Route::get('log/pclog','LogAccessInfoController@PcLogInfo')->name('log_filter');
+    Route::get('wxapplet/indexlists','WechatIndexController@Indexlists');
     Route::get('wxapplet/indexcreate','WechatIndexController@Create');
     Route::get('/captcha/{config?}','CaptchasController@Captchas');
 });

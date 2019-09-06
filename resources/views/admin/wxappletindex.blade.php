@@ -1,5 +1,5 @@
 @extends('admin.layouts.admin_app')
-@section('title')编辑普通文档@stop
+@section('title')小程序首页模板内容添加@stop
 @section('head')
     <link href="/adminlte/plugins/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
 @stop

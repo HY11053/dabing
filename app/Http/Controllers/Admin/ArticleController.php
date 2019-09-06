@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\AdminModel\Acreagement;
-
 use App\AdminModel\Archive;
 use App\AdminModel\Arctype;
-
 use App\AdminModel\InvestmentType;
 use App\Events\ArticleCacheCreateEvent;
 use App\Events\ArticleCacheDeleteEvent;
