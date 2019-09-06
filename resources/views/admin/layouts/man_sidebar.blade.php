@@ -42,10 +42,10 @@
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-wechat"></i> <span>微信小程序管理</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                <a href="#"><i class="fa fa-wechat"></i> <span>wx小程序管理</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                 <ul class="treeview-menu">
-                    <li @if(Request::getRequestUri()=='/admin/userlist')class="active"@endif><a href="/admin/userlist"><i class="fa fa-circle-o"></i> 小程序首页图文替换</a></li>
-                    <li @if(Request::getRequestUri()=='/admin/useradd')class="active"@endif><a href="/admin/useradd"><i class="fa fa-circle-o"></i> 小程序单页面列表</a></li>
+                    <li @if(Request::getRequestUri()=='/admin/wxapplet/indexlists')class="active"@endif><a href="/admin/userlist"><i class="fa fa-circle-o"></i> 小程序首页模板</a></li>
+                    <li @if(Request::getRequestUri()=='/admin/wxapplet/indexlists')class="active"@endif><a href="/admin/useradd"><i class="fa fa-circle-o"></i> 小程序单页模板</a></li>
                 </ul>
             </li>
             <li>
