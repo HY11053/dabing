@@ -1,0 +1,31 @@
+#<IfModule mod_rewrite.c>
+#   <IfModule mod_negotiation.c>
+#        Options -MultiViews -Indexes
+#    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    #RedirectMatch permanent /blist/all?([^/]$) /blist/all/
+    #RedirectMatch permanent /ilist/all?([^/]$) /ilist/all/
+    #RedirectMatch permanent /blist/([0-9a-z_]+)?([^/]$) /blist/$1$2/
+    #RedirectMatch permanent /ilist/([0-9a-z_]+)?([^/]$) /ilist/$1$2/
+    #RedirectMatch permanent /nlist/([0-9]+)?([^/]$) /nlist/$1$2/
+    #RedirectMatch permanent /news/([0-9]+)?([^/]$) /news/$1$2/
+    #RedirectMatch permanent /paihangbang?([^/]$) /paihangbang/
+    #RedirectMatch permanent /paihangbang/([0-9]+)?([^/]$) /paihangbang/$1$2/
+    #RedirectMatch permanent /blist/([0-9a-z_]+)/page/([0-9]+)?([^/]$) /blist/$1/page/$2$3/
+    #RedirectMatch permanent /ilist/([0-9a-z_]+)/page/([0-9]+)?([^/]$) /ilist/$1/page/$2$3/
+    #RedirectMatch permanent /nlist/([0-9]+)/page/([0-9]+)?([^/]$) /nlist/$1/page/$2$3/
+    # Redirect Trailing Slashes If Not A Folder...
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteCond %{REQUEST_URI} (.+)/$
+    #RewriteRule ^ %1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+#</IfModule>
