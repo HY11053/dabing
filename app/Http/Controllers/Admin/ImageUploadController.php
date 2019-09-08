@@ -32,13 +32,9 @@ class ImageUploadController extends Controller
                 $image=Image::make(storage_path('app/').$path);
                 if ($image->width()>$image->height())
                 {
-                    $image->resize(350, null,function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save(storage_path('app/').$path);
+                    $image->save(storage_path('app/').$path);
                 }else{
-                    $image->resize(null, 200,function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save(storage_path('app/').$path);
+                    $image->save(storage_path('app/').$path);
                 }
                 $litpic= '/storage'.ltrim($path,'public');
                 return json_encode(array('link'=>"$litpic"));

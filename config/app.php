@@ -136,6 +136,8 @@ return [
     'indexname'=>'',
     'keywords'=>'',
     'description'=>'',
+    'appid'=>'wx76ada57c62703fff',
+    'secret'=>'9ac061abb49c7904fb2dedd4a20be57b',
     //'api'=>'http://data.zz.baidu.com/urls?site=www.icycn.com&token=QeSFIvl5RWRgU3BT',
     //'mip_api'=>'http://data.zz.baidu.com/urls?site=m.icycn.com&token=QeSFIvl5RWRgU3BT',
     //'mip_history'=>'http://data.zz.baidu.com/urls?site=m.icycn.com&token=QeSFIvl5RWRgU3BT',

@@ -74,15 +74,23 @@ Route::group(['prefix' => 'admin'],function ()
     Route::get('phone/delete/{id}','PhoneManageController@DeletePhone');
     Route::get('sysconfig','SysConfigController@Index');
     Route::get('sysinfo','SysConfigController@Info');
-    Route::get('searchkey','SeoInfoController@SearchKey');
-    Route::get('webinfo','SeoInfoController@Index');
-    Route::get('worklinks','SeoInfoController@WorkLinks');
-    Route::get('workcheck','SeoInfoController@WorkCheck');
     Route::get('guarded_keywoeds','GuardedKeywordsController@getGuardedKeywords');
     Route::get('guarded_edit_keywoeds','GuardedKeywordsController@editGuardedKeywords');
     Route::post('guarded_edit_keywoeds_post','GuardedKeywordsController@postEditGuardedKeywords')->name('edit_guarded_keywords');
     Route::get('log/pclog','LogAccessInfoController@PcLogInfo')->name('log_filter');
-    Route::get('wxapplet/indexlists','WechatIndexController@Indexlists');
-    Route::get('wxapplet/indexcreate','WechatIndexController@Create');
+
+
+    Route::get('wxapplet/fixedtemplatelist','WechatFixedtemplateController@Fixedtemplatelists');
+    Route::get('wxapplet/fixedtemplatecreate','WechatFixedtemplateController@FixedtemplateCreate');
+    Route::post('wxapplet/fixedtemplatecreate','WechatFixedtemplateController@FixedtemplatePostCreate')->name('fixedtemplatecreate');
+    Route::get('wxapplet/fixedtemplateedit/{id}','WechatFixedtemplateController@FixedtemplateEditor');
+    Route::put('wxapplet/fixedtemplateedit/{id}','WechatFixedtemplateController@FixedtemplatePostEditor')->name('fixedtemplate_update');
+    Route::post('wxapplet/fixedtemplatedelete/{id}','WechatFixedtemplateController@FixedtemplateDelete');
+    Route::get('wxapplet/signlists','WechatSingTempController@Indexlists');
+    Route::get('wxapplet/signcreate','WechatSingTempController@Create');
+    Route::post('wxapplet/signcreate','WechatSingTempController@postCreate')->name('wxapp_signcreate');
+    Route::get('wxapplet/signupdate/{id}','WechatSingTempController@Editor');
+    Route::put('wxapplet/signupdate/{id}','WechatSingTempController@PostEditor')->name('wxsign_update');
+    Route::post('wxapplet/signdelete/{id}','WechatSingTempController@Delete');
     Route::get('/captcha/{config?}','CaptchasController@Captchas');
 });

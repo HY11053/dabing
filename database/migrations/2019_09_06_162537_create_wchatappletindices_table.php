@@ -16,6 +16,9 @@ class CreateWchatappletindicesTable extends Migration
         Schema::create('wchatappletindices', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
+            $table->string('shorttitle')->nullable();
+            $table->string('editor')->nullable();
+            $table->integer('editor_id')->nullable();
             $table->string('navtitle1')->nullable();
             $table->string('navtitle2')->nullable();
             $table->string('navtitle3')->nullable();
@@ -23,8 +26,10 @@ class CreateWchatappletindicesTable extends Migration
             $table->text('navpics')->nullable();
             $table->string('buttonone')->nullable();
             $table->text('longpics')->nullable();
-            $table->text('buttontow')->nullable();
+            $table->text('buttontwo')->nullable();
             $table->text('longtwopics')->nullable();
+            $table->index('editor_id');
+            $table->timestamps();
         });
     }
 
