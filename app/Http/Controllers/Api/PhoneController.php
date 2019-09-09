@@ -33,6 +33,10 @@ class PhoneController extends Controller
         }else{
             echo '电话号码已存在，请点击在线咨询客服';
         }
-        Formid::create(['formid'=>$request->formid]);
+        if (isset($request->formid) && !empty($request->formid))
+        {
+            Formid::create(['formid'=>$request->formid]);
+        }
+
     }
 }

@@ -152,7 +152,7 @@
                     <i class="fa fa-camera bg-red"></i>
                     <div class="timeline-item">
                         <span class="time"><i class="fa fa-clock-o"></i> {{date('j, n,y')}}</span>
-                        <h3 class="timeline-header"><a href="#">按钮1下方图集</a> 批量上传图集</h3>
+                        <h3 class="timeline-header"><a href="#">按钮2下方图集</a> 批量上传图集</h3>
                         <div class="timeline-body">
                             {{Form::file('image', array('name'=>'input-image','class' => 'file-loading','id'=>'input-image-4','hiddenfield'=>'longtwopics','multiple','accept'=>'image/*'))}}
                             <div id="kv-success-modal-longtwopics" class="modal fade">

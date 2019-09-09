@@ -24,6 +24,8 @@ class WxappletSourceController extends Controller
             return $query->where('id',$request->id);
         }, function ($query) {
             return $query->orderBy('id','asc');
+        })->when($request->random, function ($query){
+            return $query->inRandomOrder();
         })->first(['title','shorttitle','navtitle1','navtitle2','navtitle3','imagepics','navpics','buttonone','longpics','buttontwo','longtwopics']);
         if (!empty($indexInfos))
         {
@@ -88,6 +90,10 @@ class WxappletSourceController extends Controller
         }
 	}
 
+    /**发送模板消息
+     * @param Request $request
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
 	public function sendMessage(Request $request)
     {
         $form_id=Formid::where('created_at','>',Carbon::now()->subDays(6))->inRandomOrder()->value('formid');
@@ -127,9 +133,34 @@ class WxappletSourceController extends Controller
                 ]
             ];
             $tempapi="https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=".$access_token;
-            $response=$client->request('POST',$tempapi,['verify' => false],['body'=>json_encode($data)])->getBody()->getContents();
+            $response=$this->https_request($tempapi,json_encode($data));
+            return $response;
         }
 
+    }
+
+    /**curl 请求发送模板消息
+     * @param $url
+     * @param null $data
+     * @return mixed
+     */
+    private function https_request($url, $data=null) {
+        //创建一个新cURL资源
+        $curl = curl_init();
+        //设置URL和相应的项
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        if(!empty($data)) {
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        //抓取URL并把它传递给浏览器
+        $output = curl_exec($curl);
+        // 关闭cURL资源，并且释放系统资源
+        curl_close($curl);
+        return $output;
     }
 
     /**图片路径处理
