@@ -96,7 +96,7 @@ class WxappletSourceController extends Controller
      */
 	public function sendMessage(Request $request)
     {
-        $form_id=Formid::where('created_at','>',Carbon::now()->subDays(6))->inRandomOrder()->value('formid');
+        $form_id=Formid::where('created_at','>',Carbon::now()->subDays(6))->inRandomOrder()->first(['id','formid']);
         $openid=$request->get("openid");
 
         $client = new Client();
@@ -108,22 +108,14 @@ class WxappletSourceController extends Controller
                 "touser"=>$openid, //接收用户的openid
                 "template_id"=>"m2k642HbG9jHGGXN0vbxEHrEzUP-bWPqVVn3W7lep-A",  //模板id
                 "page"=>"pages/index/index",//点击模板消息跳转至小程序的页面
-                "form_id"=>$form_id, //可为表单提交时form_id，也可是支付产生的prepay_id
+                "form_id"=>$form_id->formid, //可为表单提交时form_id，也可是支付产生的prepay_id
                 "data"=>[
                     "keyword1"=>[
-                        "value"=> "五公司", //自定义参数
+                        "value"=> "VaVa影像", //自定义参数
                         "color"=> '#173177'//自定义文字颜色
                     ],
                     "keyword2"=>[
-                        "value"=> "保洁服务",//自定义参数
-                        "color"=> '#173177'//自定义文字颜色
-                    ],
-                    "keyword3"=>[
-                        "value"=> "2018年10月",//自定义参数
-                        "color"=> '#173177'//自定义文字颜色
-                    ],
-                    "keyword4"=>[
-                        "value"=> "已发布",//自定义参数
+                        "value"=> "摄影优惠价目表领取",//自定义参数
                         "color"=> '#173177'//自定义文字颜色
                     ],
                     "keyword5"=>[
@@ -134,6 +126,7 @@ class WxappletSourceController extends Controller
             ];
             $tempapi="https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=".$access_token;
             $response=$this->https_request($tempapi,json_encode($data));
+            Formid::where('id',$form_id->id)->delete();
             return $response;
         }
 
