@@ -11,6 +11,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use Log;
 
 class WxappletSourceController extends Controller
 {
@@ -126,6 +127,7 @@ class WxappletSourceController extends Controller
             ];
             $tempapi="https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=".$access_token;
             $response=$this->https_request($tempapi,json_encode($data));
+            Log::info($response);
             Formid::where('id',$form_id->id)->delete();
             return $response;
         }
