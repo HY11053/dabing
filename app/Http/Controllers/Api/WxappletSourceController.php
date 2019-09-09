@@ -91,6 +91,17 @@ class WxappletSourceController extends Controller
         }
 	}
 
+    /**存储formid
+     * @param Request $request
+     * @return mixed
+     */
+	public function saveFormid(Request $request)
+    {
+        if (Formid::create($request->all())->wasRecentlyCreated){
+            return $request->formid;
+        }
+    }
+
     /**发送模板消息
      * @param Request $request
      * @throws \GuzzleHttp\Exception\GuzzleException

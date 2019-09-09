@@ -19,6 +19,7 @@ Route::get('/getopenid', 'WxappletSourceController@getOpenid');
 Route::get('/getphonenumber', 'WxappletSourceController@getPhoneNumber');
 Route::post('/phonecomplate', 'PhoneController@phoneComplate');
 Route::post('sendmessage', 'WxappletSourceController@sendMessage');
+Route::post('savaformid', 'WxappletSourceController@saveFormid');
 
 
 
