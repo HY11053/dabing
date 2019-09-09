@@ -13,3 +13,4 @@
 
 //前台界面
 Auth::routes();
+Route::get('/','Frontend\IndexController@Index');
