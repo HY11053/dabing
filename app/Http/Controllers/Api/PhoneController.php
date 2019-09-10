@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\AdminModel\Admin;
 use App\AdminModel\Formid;
+use App\AdminModel\Opendidstore;
 use App\AdminModel\Phonemanage;
 use App\Events\PhoneEvent;
 use App\Notifications\MailSendNotification;
@@ -33,9 +34,15 @@ class PhoneController extends Controller
         }else{
             echo '电话号码已存在，请点击在线咨询客服';
         }
+        //存储当前formid备用
         if (isset($request->formid) && !empty($request->formid))
         {
             Formid::create(['formid'=>$request->formid]);
+        }
+        //删除已存储的当前用户openid
+        if (isset($request->openid) && !empty($request->openid))
+        {
+            Opendidstore::where('openid',$request->openid)->delete();
         }
 
     }

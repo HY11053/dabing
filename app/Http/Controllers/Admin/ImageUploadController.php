@@ -29,13 +29,6 @@ class ImageUploadController extends Controller
                 }
                 $extension = $file->getClientOriginalExtension();
                 $path = Storage::putFileAs($storePath, $file, md5(time()+rand(1500,2511)).'.'.$extension);
-                $image=Image::make(storage_path('app/').$path);
-                if ($image->width()>$image->height())
-                {
-                    $image->save(storage_path('app/').$path);
-                }else{
-                    $image->save(storage_path('app/').$path);
-                }
                 $litpic= '/storage'.ltrim($path,'public');
                 return json_encode(array('link'=>"$litpic"));
             }

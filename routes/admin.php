@@ -87,6 +87,8 @@ Route::group(['prefix' => 'admin'],function ()
     Route::put('wxapplet/fixedtemplateedit/{id}','WechatFixedtemplateController@FixedtemplatePostEditor')->name('fixedtemplate_update');
     Route::post('wxapplet/fixedtemplatedelete/{id}','WechatFixedtemplateController@FixedtemplateDelete');
     Route::get('wxapplet/signlists','WechatSingTempController@Indexlists');
+    Route::get('wxapplet/formids','WechatOptionsController@FormidLists');
+    Route::get('wxapplet/openid','WechatOptionsController@OpenidLists');
     Route::get('wxapplet/signcreate','WechatSingTempController@Create');
     Route::post('wxapplet/signcreate','WechatSingTempController@postCreate')->name('wxapp_signcreate');
     Route::get('wxapplet/signupdate/{id}','WechatSingTempController@Editor');

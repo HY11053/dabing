@@ -38,7 +38,7 @@
                                 <td>{{$applist->id}}</td>
                                 <td>{{$applist->title}}</td>
                                 <td>{{$applist->shorttitle}}</td>
-                                <td>@if(\Carbon\Carbon::now() > \Carbon\Carbon::parse($applist->published_at)->addDays(7)){{$applist->published_at}} @else{{\Carbon\Carbon::parse($applist->published_at)->diffForHumans()}}@endif </td>
+                                <td>@if(\Carbon\Carbon::now() > \Carbon\Carbon::parse($applist->created_at)->addDays(7)){{$applist->published_at}} @else{{\Carbon\Carbon::parse($applist->created_at)->diffForHumans()}}@endif </td>
                                 <td>{{$applist->editor}}</td>
                                 <td class="astyle">
                                     <span class="label label-warning"><a href="/admin/wxapplet/signupdate/{{$applist->id}}">编辑</a></span>

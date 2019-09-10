@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\AdminModel\Formid;
+use App\AdminModel\Opendidstore;
 use App\AdminModel\Wchatappletindex;
 use App\AdminModel\Wechatsigntemplet;
 use App\WechatRes\WxUtils;
@@ -50,6 +51,8 @@ class WxappletSourceController extends Controller
             return $query->where('id',$request->id);
         }, function ($query) {
             return $query->orderBy('id','asc');
+        })->when($request->random, function ($query){
+            return $query->inRandomOrder();
         })->first(['title','shorttitle','litpic']);
         if (!empty($thisarticleinfos))
         {
@@ -68,6 +71,10 @@ class WxappletSourceController extends Controller
         $client = new Client();
         $api = "https://api.weixin.qq.com/sns/jscode2session?appid={$request->appid}&secret={$request->secret}&js_code={$request->code}&grant_type=authorization_code";
         $openid = $client->get($api,['verify' => false])->getBody();
+        if (isset(json_decode($openid)->openid) && empty(Opendidstore::where('openid',json_decode($openid)->openid)->value('openid')))
+        {
+            Opendidstore::create(['openid'=>json_decode($openid)->openid]);
+        }
         return $openid;
     }
 
@@ -84,6 +91,7 @@ class WxappletSourceController extends Controller
         $iv = $request['iv'];
         $pc =new \WXBizDataCrypt($appid, $session_key);;
 		$errCode = $pc->decryptData($encryptedData, $iv, $data );
+		Opendidstore::where('openid',$request->openid)->delete();
 		if ($errCode == 0) {
             return $data;
         } else {
@@ -110,7 +118,7 @@ class WxappletSourceController extends Controller
     {
         $form_id=Formid::where('created_at','>',Carbon::now()->subDays(6))->inRandomOrder()->first(['id','formid']);
         $openid=$request->get("openid");
-
+        $host=$request->get('host');
         $client = new Client();
         $api = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".config('app.appid')."&secret=".config('app.secret');
         $access_token=json_decode($client->get($api,['verify' => false])->getBody()->getContents())->access_token;
@@ -119,7 +127,7 @@ class WxappletSourceController extends Controller
             $data=[
                 "touser"=>$openid, //接收用户的openid
                 "template_id"=>"m2k642HbG9jHGGXN0vbxEHrEzUP-bWPqVVn3W7lep-A",  //模板id
-                "page"=>"pages/index/index",//点击模板消息跳转至小程序的页面
+                "page"=>$host,//点击模板消息跳转至小程序的页面
                 "form_id"=>$form_id->formid, //可为表单提交时form_id，也可是支付产生的prepay_id
                 "data"=>[
                     "keyword1"=>[
@@ -127,7 +135,7 @@ class WxappletSourceController extends Controller
                         "color"=> '#173177'//自定义文字颜色
                     ],
                     "keyword2"=>[
-                        "value"=> "摄影优惠价目表领取",//自定义参数
+                        "value"=> $request->get('note')?:"宝宝照价目表领取",//自定义参数
                         "color"=> '#173177'//自定义文字颜色
                     ],
                     "keyword5"=>[

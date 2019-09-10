@@ -46,6 +46,8 @@
                 <ul class="treeview-menu">
                     <li @if(Request::getRequestUri()=='/admin/wxapplet/fixedtemplatelist')class="active"@endif><a href="/admin/wxapplet/fixedtemplatelist"><i class="fa fa-circle-o"></i> 小程序固定模板</a></li>
                     <li @if(Request::getRequestUri()=='/admin/wxapplet/signlists')class="active"@endif><a href="/admin/wxapplet/signlists"><i class="fa fa-circle-o"></i> 小程序单页模板</a></li>
+                    <li @if(Request::getRequestUri()=='/admin/wxapplet/formids')class="active"@endif><a href="/admin/wxapplet/formids"><i class="fa fa-circle-o"></i> 小程序 FormIds</a></li>
+                    <li @if(Request::getRequestUri()=='/admin/wxapplet/openid')class="active"@endif><a href="/admin/wxapplet/openid"><i class="fa fa-circle-o"></i> 小程序 Openid</a></li>
                 </ul>
             </li>
             <li>

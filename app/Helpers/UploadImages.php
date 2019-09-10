@@ -9,7 +9,6 @@
 namespace App\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 class UploadImages
 {
     /**
@@ -34,13 +33,6 @@ class UploadImages
         }
         $extension = $file->getClientOriginalExtension();
         $path = Storage::putFileAs($storePath, $file, md5(time()+rand(1,19999)).'.'.$extension);
-        $image=Image::make(storage_path('app/').$path);
-        if ($image->width()>$image->height())
-        {
-            $image->save(storage_path('app/').$path);
-        }else{
-            $image->save(storage_path('app/').$path);
-        }
         $path='/storage'.ltrim($path,'public');
         return $path;
     }
