@@ -32,7 +32,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-location-arrow" style="width:10px;"></i>
                             </div>
-                            {{Form::select('advertisement', ['jjedu.com.cn'=>'jjedu.com.cn'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 200px;','data-placeholder'=>"筛选域名",'multiple'=>"multiple"))}}
+                            {{Form::select('advertisement', ['page/index/index'=>'page/index/index','page/indexarticle/indexarticle'=>'page/indexarticle/indexarticle','page/article/article'=>'page/article/article'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 200px;','data-placeholder'=>"筛选域名",'multiple'=>"multiple"))}}
                         </div>
                     </div>
                     <button type="submit" class="btn btn-danger">筛选数据</button>
@@ -47,7 +47,6 @@
                             <th>电话</th>
                             <th>备注</th>
                             <th>提交页面</th>
-                            <th>品牌分类</th>
                             <th>来源</th>
                             <th>IP</th>
                             <th>归属地</th>
@@ -60,54 +59,12 @@
                             <td>{{$adminlist->name}}</td>
                             {{--{{substr_replace(decrypt($adminlist->phoneno),'***',3,3)}}--}}
                             @if(auth('admin')->id()==1)
-                            <td>{{decrypt($adminlist->phoneno)}}</td>
+                            <td>{{$adminlist->phoneno}}</td>
                             @else
-                            <td>{{substr_replace(decrypt($adminlist->phoneno),'***',3,3)}}</td>
+                            <td>{{substr_replace($adminlist->phoneno,'***',3,3)}}</td>
                             @endif
                             <td>{{str_limit($adminlist->note,10,'')}}</td>
                            <td>{{str_limit($adminlist->host,73,'')}}</td>
-                           <td>
-                               @php
-                                   preg_match('#\/news\/(\d+)\.shtml#',$adminlist->host,$matches);
-                                   if (isset($matches[1]))
-                                   {
-                                   $thisartcileinfos=\App\AdminModel\Archive::where('id',$matches[1])->first(['id','brandid','created_at','typeid']);
-                                   $thisbrandartcileinfos=\App\AdminModel\Brandarticle::where('id',$thisartcileinfos->brandid)->first(['id','brandname','typeid']);
-                                   if ($thisartcileinfos->brandid && isset($thisbrandartcileinfos->brandname))
-                                   {
-                                    $brand=$thisbrandartcileinfos->brandname;
-                                    $type=$thisbrandartcileinfos->arctype->typename;
-                                   }elseif($thisartcileinfos->bdname){
-                                    $brand=$thisartcileinfos->bdname;
-                                    $type='暂未分类';
-                                   }else{
-                                   $brand='暂未分类';
-                                    $type='暂未分类';
-                                   }
-                                   $isnew=\App\AdminModel\Archive::where('id',$matches[1])->value('created_at')>\Carbon\Carbon::now()->subMonth()?'<i class="fa  fa-fire"></i>':'';
-                                   }else{
-                                       preg_match('#\/xm\/(\d+)\.shtml#',$adminlist->host,$matches);
-                                       if (isset($matches[1])){
-                                           $brand=\App\AdminModel\Brandarticle::where('id',$matches[1])->value('brandname');
-                                           if(empty($brand))
-                                           {
-                                           $brand='品牌已删除';
-                                            $type='';
-                                            $isnew='';
-                                           }else{
-                                           $brandarticle=\App\AdminModel\Brandarticle::where('id',$matches[1])->first();
-                                           $isnew=\App\AdminModel\Brandarticle::where('id',$matches[1])->value('created_at')>\Carbon\Carbon::now()->subMonth()?'<i class="fa  fa-fire"></i>':'';
-                                           $type=$brandarticle->arctype->typename;
-                                           }
-                                       }else{
-                                       $brand='暂未分类';
-                                       $type='';
-                                       $isnew='';
-                                       }
-                                   }
-                               echo '<span style="color:red;">'.$isnew.'</span>'.$brand.'——<strong style="color:red;">'.$type.'</strong>';
-                               @endphp
-                           </td>
                            <td title="{{$adminlist->referer}}">
                            @if(stristr($adminlist->referer,'baidu'))
                                百度

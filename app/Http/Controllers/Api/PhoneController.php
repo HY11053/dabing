@@ -23,7 +23,7 @@ class PhoneController extends Controller
         }else{
             $request['ip']=$request->getClientIp();
         }
-        if(!empty($request->phoneno) && empty(Phonemanage::where('ip', $request['ip'])->where('created_at','>',Carbon::now()->subHour())->where('created_at','<',Carbon::now())->value('ip')))
+        if(!empty($request->phoneno) && empty(Phonemanage::where('ip', $request['ip'])->where('created_at','>',Carbon::now()->subSeconds(50))->where('created_at','<',Carbon::now())->value('ip')) && empty(Phonemanage::where('phoneno', $request['phoneno'])->where('created_at','>',Carbon::now()->subDay())->where('created_at','<',Carbon::now())->value('phoneno')))
         {
             $request['host']=$request->input('host');
             $request['referer']='wxapplet';

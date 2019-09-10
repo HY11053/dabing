@@ -88,7 +88,7 @@ class PhoneManageController extends Controller
      */
     function DeletePhone(Request $request,$id)
     {
-        if(auth('admin')->id()==7 || auth('admin')->id()==1)
+        if(auth('admin')->id()==1)
         {
             Phonemanage::findOrFail($id)->delete();
             return redirect($request->server('HTTP_REFERER'));

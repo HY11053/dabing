@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('article:check')
-            ->everyMinute();
+        $schedule->command('wechat:send')
+            ->dailyAt('08:03');
     }
 
     /**

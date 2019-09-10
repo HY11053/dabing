@@ -10,8 +10,4 @@ class Phonemanage extends Model
     use Notifiable;
     //
     protected $fillable=['phoneno','name','address','ip','note','host','referer'];
-    public function setPhonenoAttribute($phoneno)
-    {
-        $this->attributes['phoneno']=encrypt($phoneno);
-    }
 }

@@ -15,7 +15,7 @@ class CreatePhonemanagesTable extends Migration
     {
         Schema::create('phonemanages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('phoneno',500);
+            $table->string('phoneno');
             $table->string('name')->nullable();
             $table->string('gender')->nullable('');
             $table->string('address')->nullable('');
